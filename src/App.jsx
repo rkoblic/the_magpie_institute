@@ -232,6 +232,39 @@ const connections = [
   },
 ];
 
+const centerConnections = [
+  {
+    to: "thresholds",
+    label:
+      "Thresholds are the specific conditions under which the in-between becomes productive",
+  },
+  {
+    to: "coherence",
+    label:
+      "Coherence measures what emerges from the generative space between things",
+  },
+  {
+    to: "parallax",
+    label:
+      "Displaced perspectives create the in-between — the space where depth appears",
+  },
+  {
+    to: "embodiment",
+    label:
+      "The body is what makes the in-between a felt space, not just a concept",
+  },
+  {
+    to: "animacy",
+    label:
+      "The in-between is alive because both sides participate — neither knower nor known is passive",
+  },
+  {
+    to: "recursive",
+    label:
+      "Self-observation turns the in-between into a learning space rather than a static gap",
+  },
+];
+
 const roleLabels = {
   where: "the where",
   when: "the when",
@@ -247,6 +280,7 @@ export default function MagpiePrinciples() {
   const [expanded, setExpanded] = useState(null);
   const [hovered, setHovered] = useState(null);
   const [hoveredConnection, setHoveredConnection] = useState(null);
+  const [hoveredCenterConnection, setHoveredCenterConnection] = useState(null);
   const [hoveredDiscipline, setHoveredDiscipline] = useState(null);
   const [dimensions, setDimensions] = useState({ width: 800, height: 800 });
   const containerRef = useRef(null);
@@ -397,7 +431,7 @@ export default function MagpiePrinciples() {
   const centerPulse = 0.4 + Math.sin(time * 0.8) * 0.15;
   const centerPulse2 = 0.25 + Math.sin(time * 0.5 + 1) * 0.1;
 
-  const showConnectionLabel = hoveredConnection && !selected;
+  const showConnectionLabel = (hoveredConnection || hoveredCenterConnection) && !selected;
   const activeConnection = hoveredConnection
     ? connections.find(
         (c) =>
@@ -406,6 +440,9 @@ export default function MagpiePrinciples() {
           (c.to === hoveredConnection.from &&
             c.from === hoveredConnection.to)
       )
+    : null;
+  const activeCenterConnection = hoveredCenterConnection
+    ? centerConnections.find((c) => c.to === hoveredCenterConnection)
     : null;
 
   const expandedPrinciple = expanded
@@ -543,29 +580,65 @@ export default function MagpiePrinciples() {
             .map((p) => {
               const pos = getPosition(p);
               const isActive2 = active === p.id || active === "in-between";
+              const isHoveredCenter = hoveredCenterConnection === p.id;
+              const midX = (cx + pos.x) / 2;
+              const midY = (cy + pos.y) / 2;
+              const expandFade = isExpanding ? 0.04 : 1;
               return (
-                <line
-                  key={`center-${p.id}`}
-                  x1={cx}
-                  y1={cy}
-                  x2={pos.x}
-                  y2={pos.y}
-                  stroke={p.color}
-                  strokeWidth={isActive2 ? 1 : 0.5}
-                  opacity={
-                    isExpanding
-                      ? expanded === p.id || expanded === "in-between"
+                <g key={`center-${p.id}`}>
+                  <line
+                    x1={cx}
+                    y1={cy}
+                    x2={pos.x}
+                    y2={pos.y}
+                    stroke={isHoveredCenter ? "#E8E4DF" : p.color}
+                    strokeWidth={isHoveredCenter ? 1.5 : isActive2 ? 1 : 0.5}
+                    opacity={
+                      (isHoveredCenter
+                        ? 0.7
+                        : isExpanding
+                        ? expanded === p.id || expanded === "in-between"
+                          ? 0.35
+                          : 0.05
+                        : isActive2
                         ? 0.35
-                        : 0.05
-                      : isActive2
-                      ? 0.35
-                      : 0.12
-                  }
-                  style={{
-                    transition:
-                      "opacity 0.5s ease, stroke-width 0.5s ease",
-                  }}
-                />
+                        : 0.12) * (isHoveredCenter ? 1 : expandFade)
+                    }
+                    style={{
+                      transition:
+                        "opacity 0.5s ease, stroke-width 0.5s ease, stroke 0.3s ease",
+                      pointerEvents: "none",
+                    }}
+                  />
+                  {/* Invisible hitbox */}
+                  <line
+                    x1={cx}
+                    y1={cy}
+                    x2={pos.x}
+                    y2={pos.y}
+                    stroke="transparent"
+                    strokeWidth="20"
+                    style={{ cursor: isExpanding ? "default" : "pointer" }}
+                    onMouseEnter={() =>
+                      !isExpanding && setHoveredCenterConnection(p.id)
+                    }
+                    onMouseLeave={() => setHoveredCenterConnection(null)}
+                  />
+                  {/* Midpoint dot */}
+                  {!active && !isExpanding && (
+                    <circle
+                      cx={midX}
+                      cy={midY}
+                      r={isHoveredCenter ? 3 : 1.5}
+                      fill={isHoveredCenter ? "#E8E4DF" : p.color}
+                      opacity={isHoveredCenter ? 0.8 : 0.25}
+                      style={{
+                        transition: "all 0.3s ease",
+                        pointerEvents: "none",
+                      }}
+                    />
+                  )}
+                </g>
               );
             })}
 
@@ -590,7 +663,7 @@ export default function MagpiePrinciples() {
             const len = Math.sqrt(dx * dx + dy * dy);
             const nx = -dy / len;
             const ny = dx / len;
-            const curve = 15 + Math.sin(time + conn.from.length) * 3;
+            const curve = 40 + Math.sin(time + conn.from.length) * 5;
             const ctrlX = midX + nx * curve;
             const ctrlY = midY + ny * curve;
 
@@ -683,7 +756,7 @@ export default function MagpiePrinciples() {
                       cy={d.y}
                       r={isHoveredDisc ? 4.5 : 2.5}
                       fill={expandedPrinciple.color}
-                      opacity={d.opacity * (isHoveredDisc ? 0.9 : 0.4)}
+                      opacity={d.opacity * (isHoveredDisc ? 1 : 0.8)}
                       style={{ cursor: "default", transition: "all 0.2s ease" }}
                       onMouseEnter={() => setHoveredDiscipline(i)}
                       onMouseLeave={() => setHoveredDiscipline(null)}
@@ -699,7 +772,7 @@ export default function MagpiePrinciples() {
                         fontSize={Math.max(8, dimensions.width * 0.0115)}
                         fontFamily="'DM Sans', sans-serif"
                         fontWeight={isHoveredDisc ? 400 : 300}
-                        opacity={d.opacity * (isHoveredDisc ? 0.9 : 0.5)}
+                        opacity={d.opacity * (isHoveredDisc ? 1 : 0.85)}
                         style={{ pointerEvents: "none", transition: "opacity 0.2s ease" }}
                       >
                         {d.name}
@@ -720,7 +793,7 @@ export default function MagpiePrinciples() {
                     y2={d.y}
                     stroke={expandedPrinciple.color}
                     strokeWidth={isHoveredDisc ? 1 : 0.5}
-                    opacity={d.opacity * (isHoveredDisc ? 0.5 : 0.2)}
+                    opacity={d.opacity * (isHoveredDisc ? 0.6 : 0.35)}
                     style={{ pointerEvents: "none" }}
                   />
                   {/* Discipline dot */}
@@ -729,7 +802,7 @@ export default function MagpiePrinciples() {
                     cy={d.y}
                     r={isHoveredDisc ? 5 : 3.5}
                     fill={expandedPrinciple.color}
-                    opacity={d.opacity * (isHoveredDisc ? 0.9 : 0.5)}
+                    opacity={d.opacity * (isHoveredDisc ? 1 : 0.8)}
                     style={{ cursor: "default", transition: "r 0.2s ease" }}
                     onMouseEnter={() => setHoveredDiscipline(i)}
                     onMouseLeave={() => setHoveredDiscipline(null)}
@@ -749,7 +822,7 @@ export default function MagpiePrinciples() {
                       fontSize={Math.max(8, dimensions.width * 0.012)}
                       fontFamily="'DM Sans', sans-serif"
                       fontWeight={isHoveredDisc ? 400 : 300}
-                      opacity={d.opacity * (isHoveredDisc ? 0.95 : 0.6)}
+                      opacity={d.opacity * (isHoveredDisc ? 1 : 0.85)}
                       style={{ pointerEvents: "none", transition: "opacity 0.2s ease" }}
                     >
                       {d.name}
@@ -1002,7 +1075,59 @@ export default function MagpiePrinciples() {
           marginTop: -20,
         }}
       >
-        {showConnectionLabel && activeConnection ? (
+        {showConnectionLabel && activeCenterConnection ? (
+          <div
+            key={`center-conn-${hoveredCenterConnection}`}
+            style={{ animation: "fadeIn 0.3s ease" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 10,
+                marginBottom: 12,
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 13,
+                  color: principles.find((p) => p.id === "in-between")?.color,
+                  fontWeight: 400,
+                }}
+              >
+                The In-Between
+              </span>
+              <span style={{ color: "#4A4540", fontSize: 12 }}>⟷</span>
+              <span
+                style={{
+                  fontSize: 13,
+                  color: principles.find(
+                    (p) => p.id === hoveredCenterConnection
+                  )?.color,
+                  fontWeight: 400,
+                }}
+              >
+                {
+                  principles.find((p) => p.id === hoveredCenterConnection)
+                    ?.name
+                }
+              </span>
+            </div>
+            <p
+              style={{
+                fontSize: "clamp(13px, 2vw, 15px)",
+                fontWeight: 300,
+                color: "#9A9590",
+                lineHeight: 1.7,
+                margin: 0,
+                fontStyle: "italic",
+              }}
+            >
+              {activeCenterConnection.label}
+            </p>
+          </div>
+        ) : showConnectionLabel && activeConnection ? (
           <div
             key={`conn-${activeConnection.from}-${activeConnection.to}`}
             style={{ animation: "fadeIn 0.3s ease" }}

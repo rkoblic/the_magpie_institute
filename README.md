@@ -24,7 +24,7 @@ cp src/App.v2-snapshot.jsx src/App.jsx
 ## Interactions
 
 - **Hover** a principle node to see its description and highlight connections
-- **Hover** a connection line to see how two principles relate
+- **Hover** any connection line (outer or radial) to see how two principles relate
 - **Click** a principle to expand its discipline spokes (click again to collapse)
 - The In-Between expands as an orbiting ring; outer principles expand as a fan
 - Bottom legend also works as navigation
