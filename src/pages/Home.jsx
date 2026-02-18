@@ -19,6 +19,9 @@ export default function Home() {
             visible.
           </p>
         </div>
+        <div className="hero-image">
+          <img src="/images/hero.png" alt="The Magpie Institute" />
+        </div>
       </section>
 
       <section id="about">

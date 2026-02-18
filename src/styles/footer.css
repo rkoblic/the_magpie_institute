@@ -85,6 +85,10 @@
   letter-spacing: 0.1em;
 }
 
+body.dark-theme .site-footer {
+  background: #0E1117;
+}
+
 @media (max-width: 768px) {
   .site-footer {
     padding: 4rem 1.5rem 2rem;

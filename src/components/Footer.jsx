@@ -41,7 +41,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        &copy; 2026 The Magpie Institute &bull; Cambridge, Massachusetts
+        &copy; 2026 The Magpie Institute
       </div>
     </footer>
   );
