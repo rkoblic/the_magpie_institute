@@ -1,0 +1,140 @@
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(250, 250, 250, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--tarnished-silver);
+  padding: 1.5rem 4rem;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.site-nav.scrolled {
+  padding: 1rem 4rem;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: var(--ink-black);
+}
+
+.nav-symbol {
+  width: 35px;
+  height: 35px;
+  transition: transform 0.3s;
+}
+
+.nav-brand:hover .nav-symbol {
+  transform: rotate(-10deg);
+}
+
+.nav-wordmark {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.125rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 3rem;
+  list-style: none;
+}
+
+.nav-menu a {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--archive-grey);
+  text-decoration: none;
+  transition: color 0.3s;
+  letter-spacing: 0.05em;
+  position: relative;
+}
+
+.nav-menu a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--corvid-blue);
+  transition: width 0.3s;
+}
+
+.nav-menu a:hover {
+  color: var(--corvid-blue);
+}
+
+.nav-menu a:hover::after,
+.nav-menu a.active::after {
+  width: 100%;
+}
+
+.nav-menu a.active {
+  color: var(--ink-black);
+}
+
+/* Dark theme overrides */
+body.dark-theme .site-nav {
+  background: rgba(14, 17, 23, 0.95);
+  border-bottom-color: #2A2E35;
+}
+
+body.dark-theme .site-nav.scrolled {
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .nav-brand {
+  color: #E8E4DF;
+}
+
+body.dark-theme .nav-wordmark {
+  color: #E8E4DF;
+}
+
+body.dark-theme .nav-menu a {
+  color: #8A8580;
+}
+
+body.dark-theme .nav-menu a:hover {
+  color: #E8E4DF;
+}
+
+body.dark-theme .nav-menu a::after {
+  background: #E8D5B7;
+}
+
+body.dark-theme .nav-menu a.active {
+  color: #E8E4DF;
+}
+
+body.dark-theme .nav-symbol {
+  color: #E8E4DF;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .site-nav {
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-menu {
+    gap: 1.5rem;
+  }
+
+  .nav-wordmark {
+    display: none;
+  }
+}

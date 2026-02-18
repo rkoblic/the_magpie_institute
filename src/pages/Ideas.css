@@ -1,0 +1,83 @@
+#ideas {
+  background: white;
+  margin-top: 5rem;
+}
+
+.ideas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 3rem;
+  max-width: 1400px;
+}
+
+.idea-card {
+  background: var(--paper-white);
+  border: 1px solid var(--tarnished-silver);
+  padding: 2.5rem;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.idea-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.idea-meta {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--tarnished-silver);
+  margin-bottom: 1rem;
+}
+
+.idea-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.idea-title a {
+  color: var(--ink-black);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.idea-title a:hover {
+  color: var(--corvid-blue);
+}
+
+.idea-excerpt {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--archive-grey);
+  margin-bottom: 1.5rem;
+}
+
+.idea-author {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  color: var(--archive-grey);
+}
+
+.idea-tag {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--corvid-blue);
+  color: white;
+  border-radius: 2px;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .ideas-grid {
+    grid-template-columns: 1fr;
+  }
+}

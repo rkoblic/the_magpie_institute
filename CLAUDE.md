@@ -1,33 +1,47 @@
 # The Magpie Institute
 
-An interactive constellation diagram of seven organizing principles for an interdisciplinary research institute.
+Multi-page website for an interdisciplinary research institute organized around principles rather than disciplines.
 
 ## Stack
 
-- React 18 + Vite
-- Single-component app (`src/App.jsx`) — pure SVG, no external UI libraries
-- Only React hooks: `useState`, `useEffect`, `useRef`, `useCallback`
-- Fonts from Google Fonts CDN (DM Sans, Instrument Serif)
+- React 18 + Vite + React Router v6
+- Plain CSS with CSS custom properties (no Tailwind/CSS-in-JS)
+- Google Fonts: EB Garamond (display), Crimson Text (body), Inter (UI), DM Sans + Instrument Serif (Principles page)
 
 ## Project Structure
 
-- `src/App.jsx` — Current version (v3): constellation + expandable discipline spokes + orbiting ring for The In-Between
-- `src/App.v2-snapshot.jsx` — Snapshot of v2 for reference/revert
-- `src/main.jsx` — Entry point
-- `principles.md` — Source-of-truth document for principle descriptions, roles, and connection labels
+```
+src/
+  main.jsx                  # Entry point with createBrowserRouter
+  App.jsx                   # Layout shell: Nav + Outlet + Footer
+  styles/                   # Global CSS, nav, footer styles
+  components/               # Nav, Footer, MagpieLogo, card components
+  pages/                    # Home, Ideas, Experiments, Events, People, Principles
+  features/principles-diagram/  # Interactive SVG constellation diagram + data
+  data/                     # Placeholder content (ideas, experiments, events, people)
+```
 
-## Key Concepts
+## Routes
 
-- **7 principles**: The In-Between (center), Generative Thresholds, Coherence, Parallax, Embodiment, Animacy, Recursive Self-Shaping
-- **Connections**: Every pair of outer principles has a labeled relationship; each outer principle also connects to The In-Between
-- **Interactions**: Hover nodes for descriptions, hover connection lines for relationship labels, click to expand discipline spokes
+- `/` — Home (Hero + About)
+- `/ideas` — Ideas grid
+- `/experiments` — Experiments list
+- `/events` — Events grid
+- `/people` — People grid
+- `/principles` — Interactive constellation diagram (dark theme)
 
-## Design Notes
+## Key Design Decisions
 
-- Dark background (#0E1117), muted earth-tone palette
-- Ambient animation: gentle drift, breathing rings, subtle curves
-- Discipline spokes fan outward for outer nodes; orbit as a ring for The In-Between
-- Connection lines bow outward (curved) to stay clear of radial center lines
+- Light theme (paper-white #FAFAFA) for all pages except Principles
+- Principles page uses dark theme (#0E1117) via `body.dark-theme` class toggle
+- Nav adapts to dark/light via CSS overrides on `body.dark-theme`
+- Principles diagram uses all inline styles (idiomatic for programmatic SVG)
+- `principles.md` is the source-of-truth for principle descriptions and connections
+
+## Reference Files
+
+- `remixed-14f64eae.html` — Original HTML sketch used as design baseline
+- `src/App.v2-snapshot.jsx` — Legacy v2 diagram snapshot (pre-disciplines)
 
 ## Commands
 

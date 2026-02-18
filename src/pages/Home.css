@@ -1,0 +1,101 @@
+.hero {
+  margin-top: 5rem;
+  padding: 8rem 4rem 6rem;
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10%;
+  width: 40%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 60px,
+      rgba(168, 181, 192, 0.04) 60px,
+      rgba(168, 181, 192, 0.04) 120px
+    );
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 800px;
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 1s ease-out;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 3.5rem;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  color: var(--ink-black);
+}
+
+.hero-intro {
+  font-size: 1.375rem;
+  line-height: 1.7;
+  color: var(--archive-grey);
+  margin-bottom: 1.5rem;
+}
+
+.hero-body {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--archive-grey);
+}
+
+#about {
+  background: var(--paper-white);
+}
+
+.about-content {
+  max-width: 900px;
+}
+
+.about-text {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.inspiration-box {
+  background: white;
+  border-left: 3px solid var(--corvid-blue);
+  padding: 2rem 2.5rem;
+  margin: 3rem 0;
+  font-style: italic;
+  color: var(--archive-grey);
+}
+
+.inspiration-box p {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.inspiration-box .attribution {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-style: normal;
+  color: var(--tarnished-silver);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 5rem 1.5rem 4rem;
+  }
+
+  .hero h1 {
+    font-size: 2.25rem;
+  }
+}

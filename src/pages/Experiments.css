@@ -1,0 +1,67 @@
+#experiments {
+  background: var(--paper-white);
+  margin-top: 5rem;
+}
+
+.experiments-intro {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--archive-grey);
+  max-width: 800px;
+  margin-bottom: 3rem;
+}
+
+.experiment-list {
+  max-width: 900px;
+}
+
+.experiment-item {
+  border-left: 3px solid transparent;
+  padding: 2rem 0 2rem 2rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.experiment-item:hover {
+  border-left-color: var(--verdigris);
+  padding-left: 2.5rem;
+}
+
+.experiment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.experiment-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--ink-black);
+}
+
+.experiment-status {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 2px;
+}
+
+.experiment-status.active {
+  background: var(--verdigris);
+  color: white;
+}
+
+.experiment-status.emerging {
+  background: var(--amber-glint);
+  color: var(--ink-black);
+}
+
+.experiment-description {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--archive-grey);
+}

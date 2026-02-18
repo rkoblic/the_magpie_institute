@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Magpie Institute - Collectors of Ideas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --ink-black: #1A1A1A;
+            --archive-grey: #4A4A4A;
+            --paper-white: #FAFAFA;
+            --tarnished-silver: #A8B5C0;
+            --corvid-blue: #2E5266;
+            --verdigris: #3D6F5B;
+            --amber-glint: #D4A574;
+            
+            --font-display: 'EB Garamond', serif;
+            --font-body: 'Crimson Text', serif;
+            --font-ui: 'Inter', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--paper-white);
+            color: var(--ink-black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(250, 250, 250, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--tarnished-silver);
+            padding: 1.5rem 4rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        nav.scrolled {
+            padding: 1rem 4rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--ink-black);
+        }
+        
+        .nav-symbol {
+            width: 35px;
+            height: 35px;
+            transition: transform 0.3s;
+        }
+        
+        .nav-brand:hover .nav-symbol {
+            transform: rotate(-10deg);
+        }
+        
+        .nav-wordmark {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 1.125rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+        
+        .nav-menu a {
+            font-family: var(--font-ui);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--archive-grey);
+            text-decoration: none;
+            transition: color 0.3s;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--corvid-blue);
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--corvid-blue);
+        }
+        
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+        
+        .nav-menu a.active {
+            color: var(--ink-black);
+        }
+        
+        /* Hero Section */
+        .hero {
+            margin-top: 5rem;
+            padding: 8rem 4rem 6rem;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -10%;
+            width: 40%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 60px,
+                    rgba(168, 181, 192, 0.04) 60px,
+                    rgba(168, 181, 192, 0.04) 120px
+                );
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            color: var(--ink-black);
+        }
+        
+        .hero-intro {
+            font-size: 1.375rem;
+            line-height: 1.7;
+            color: var(--archive-grey);
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-body {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--archive-grey);
+        }
+        
+        /* Section Base Styles */
+        section {
+            padding: 6rem 4rem;
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 3rem;
+            color: var(--ink-black);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--corvid-blue);
+        }
+        
+        /* About Section */
+        #about {
+            background: var(--paper-white);
+        }
+        
+        .about-content {
+            max-width: 900px;
+        }
+        
+        .about-text {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .inspiration-box {
+            background: white;
+            border-left: 3px solid var(--corvid-blue);
+            padding: 2rem 2.5rem;
+            margin: 3rem 0;
+            font-style: italic;
+            color: var(--archive-grey);
+        }
+        
+        .inspiration-box p {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        
+        .inspiration-box .attribution {
+            font-family: var(--font-ui);
+            font-size: 0.875rem;
+            font-style: normal;
+            color: var(--tarnished-silver);
+            letter-spacing: 0.05em;
+        }
+        
+        /* Ideas Section */
+        #ideas {
+            background: white;
+        }
+        
+        .ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+        }
+        
+        .idea-card {
+            background: var(--paper-white);
+            border: 1px solid var(--tarnished-silver);
+            padding: 2.5rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .idea-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        
+        .idea-meta {
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--tarnished-silver);
+            margin-bottom: 1rem;
+        }
+        
+        .idea-title {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        
+        .idea-title a {
+            color: var(--ink-black);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .idea-title a:hover {
+            color: var(--corvid-blue);
+        }
+        
+        .idea-excerpt {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--archive-grey);
+            margin-bottom: 1.5rem;
+        }
+        
+        .idea-author {
+            font-family: var(--font-ui);
+            font-size: 0.875rem;
+            color: var(--archive-grey);
+        }
+        
+        .idea-tag {
+            display: inline-block;
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--corvid-blue);
+            color: white;
+            border-radius: 2px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Experiments Section */
+        #experiments {
+            background: var(--paper-white);
+        }
+        
+        .experiments-intro {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--archive-grey);
+            max-width: 800px;
+            margin-bottom: 3rem;
+        }
+        
+        .experiment-list {
+            max-width: 900px;
+        }
+        
+        .experiment-item {
+            border-left: 3px solid transparent;
+            padding: 2rem 0 2rem 2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .experiment-item:hover {
+            border-left-color: var(--verdigris);
+            padding-left: 2.5rem;
+        }
+        
+        .experiment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1rem;
+        }
+        
+        .experiment-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--ink-black);
+        }
+        
+        .experiment-status {
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2px;
+        }
+        
+        .experiment-status.active {
+            background: var(--verdigris);
+            color: white;
+        }
+        
+        .experiment-status.emerging {
+            background: var(--amber-glint);
+            color: var(--ink-black);
+        }
+        
+        .experiment-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--archive-grey);
+        }
+        
+        /* Events Section */
+        #events {
+            background: white;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+        }
+        
+        .event-card {
+            background: var(--paper-white);
+            border: 1px solid var(--tarnished-silver);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .event-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .event-date-block {
+            background: var(--corvid-blue);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .event-month {
+            font-family: var(--font-ui);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+        
+        .event-day {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 500;
+            line-height: 1;
+        }
+        
+        .event-content {
+            padding: 2rem;
+        }
+        
+        .event-title {
+            font-family: var(--font-display);
+            font-size: 1.375rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+        
+        .event-details {
+            font-family: var(--font-ui);
+            font-size: 0.875rem;
+            color: var(--archive-grey);
+            margin-bottom: 1rem;
+        }
+        
+        .event-description {
+            font-size: 0.938rem;
+            line-height: 1.6;
+            color: var(--archive-grey);
+        }
+        
+        /* People Section */
+        #people {
+            background: var(--paper-white);
+        }
+        
+        .people-intro {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--archive-grey);
+            max-width: 800px;
+            margin-bottom: 3rem;
+        }
+        
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+        }
+        
+        .person-card {
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .person-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .person-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--tarnished-silver);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            font-family: var(--font-display);
+        }
+        
+        .person-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .person-role {
+            font-family: var(--font-ui);
+            font-size: 0.875rem;
+            color: var(--corvid-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+        
+        .person-bio {
+            font-size: 0.938rem;
+            line-height: 1.6;
+            color: var(--archive-grey);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--ink-black);
+            color: var(--paper-white);
+            padding: 4rem 4rem 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-symbol {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .footer-wordmark {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        
+        .footer-tagline {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1.125rem;
+            opacity: 0.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-description {
+            font-size: 0.938rem;
+            line-height: 1.7;
+            opacity: 0.7;
+        }
+        
+        .footer-section h3 {
+            font-family: var(--font-ui);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: var(--paper-white);
+            text-decoration: none;
+            transition: opacity 0.3s;
+            opacity: 0.7;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(168, 181, 192, 0.2);
+            padding-top: 2rem;
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            opacity: 0.4;
+            text-align: center;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+            
+            .nav-menu {
+                gap: 1.5rem;
+            }
+            
+            .nav-wordmark {
+                display: none;
+            }
+            
+            .hero {
+                padding: 5rem 1.5rem 4rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+            
+            section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .ideas-grid,
+            .people-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+        
+        /* Magpie SVG Styles */
+        .magpie-silhouette {
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <a href="#home" class="nav-brand">
+            <svg class="nav-symbol" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                <ellipse class="magpie-silhouette" cx="85" cy="45" rx="12" ry="14" transform="rotate(-20 85 45)"/>
+                <path class="magpie-silhouette" d="M95,42 L105,38 L104,43 L95,45 Z"/>
+                <ellipse class="magpie-silhouette" cx="70" cy="65" rx="20" ry="28" transform="rotate(-10 70 65)"/>
+                <path class="magpie-silhouette" d="M58,55 Q50,60 48,70 Q47,80 52,88 L60,85 Q62,75 65,65 Z"/>
+                <path class="magpie-silhouette" d="M55,85 Q45,95 40,110 Q38,118 42,125 L48,123 Q50,115 54,105 Q58,95 60,88 Z"/>
+                <path class="magpie-silhouette" d="M60,88 Q52,98 48,112 Q47,120 50,128 L55,126 Q57,118 60,108 Q63,98 65,90 Z"/>
+                <path class="magpie-silhouette" d="M65,90 Q60,100 58,115 Q58,123 62,130 L67,128 Q68,120 70,110 Q72,100 72,92 Z"/>
+            </svg>
+            <div class="nav-wordmark">The Magpie Institute</div>
+        </a>
+        <ul class="nav-menu">
+            <li><a href="#about" class="active">About</a></li>
+            <li><a href="#ideas">Ideas</a></li>
+            <li><a href="#experiments">Experiments</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#people">People</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>We are collectors of ideas that don't yet have a home.</h1>
+            <p class="hero-intro">The Magpie Institute exists in the ungoverned space between disciplines, between the questions that have been answered and the questions that haven't yet been asked properly.</p>
+            <p class="hero-body">We collect at the margins: the speculative, the overlooked, the almost-but-not-quite-formed. Here, a physicist's metaphor sits alongside a medieval manuscript, a neuroscientist's hunch converses with a poet's observation, and the connective tissue between them remains deliberately visible.</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">About</h2>
+        <div class="about-content">
+            <p class="about-text">This is not a place that has finished deciding what it is. We are building something whose final form we cannot yet see—a repository for the kind of thinking that gets filed away as "interesting but not quite fitting the scope." If you've ever had a thought that didn't belong in your discipline but felt too alive to abandon, this is where it might find its kin.</p>
+            
+            <p class="about-text">The magpie, nature's infamous curator, doesn't distinguish between the precious and the merely shiny. It gathers what catches the light—a bottle cap beside a diamond, a fragment of mirror next to a coin—and arranges them according to a logic that makes sense only in retrospect. This is how thought actually works, before it becomes respectable.</p>
+            
+            <div class="inspiration-box">
+                <p>The Salk Institute is a curious place, not easily understood, and the reason for it is that this is a place in the process of creation. It is being created and is engaged in studies of creation. We cannot be certain what will happen here, but we can be certain it will contribute to the welfare and understanding of man.</p>
+                <div class="attribution">— Jonas Salk, 1963</div>
+            </div>
+            
+            <p class="about-text">What emerges from these odd juxtapositions, we cannot predict. But we can be certain it will glint.</p>
+        </div>
+    </section>
+
+    <section id="ideas">
+        <h2 class="section-title">Ideas</h2>
+        <div class="ideas-grid">
+            <article class="idea-card">
+                <div class="idea-meta">Essay • 12 min read</div>
+                <h3 class="idea-title"><a href="#">The Taxonomy of Almost-Thoughts</a></h3>
+                <p class="idea-excerpt">What do we do with the ideas that arrive half-formed, the observations that don't quite crystallize into arguments? A meditation on intellectual marginalia and the spaces between disciplines.</p>
+                <div>
+                    <span class="idea-tag">Epistemology</span>
+                    <span class="idea-tag">Methodology</span>
+                </div>
+                <p class="idea-author">By Eleanor Ashford</p>
+            </article>
+            
+            <article class="idea-card">
+                <div class="idea-meta">Research Note • 8 min read</div>
+                <h3 class="idea-title"><a href="#">When Metaphors Predict</a></h3>
+                <p class="idea-excerpt">Examining cases where poetic language in scientific discourse preceded formal theory—from Maxwell's "displacement current" to Feynman's "path integral." What does figurative thinking reveal about discovery?</p>
+                <div>
+                    <span class="idea-tag">Philosophy of Science</span>
+                    <span class="idea-tag">Language</span>
+                </div>
+                <p class="idea-author">By Marcus Chen</p>
+            </article>
+            
+            <article class="idea-card">
+                <div class="idea-meta">Collection • Ongoing</div>
+                <h3 class="idea-title"><a href="#">Orphaned Observations</a></h3>
+                <p class="idea-excerpt">A growing archive of empirical observations that don't fit existing theoretical frameworks. Each entry includes the original context, why it was set aside, and invitations for reinterpretation.</p>
+                <div>
+                    <span class="idea-tag">Archive</span>
+                    <span class="idea-tag">Open Questions</span>
+                </div>
+                <p class="idea-author">Curated by the Institute</p>
+            </article>
+            
+            <article class="idea-card">
+                <div class="idea-meta">Dialogue • 15 min read</div>
+                <h3 class="idea-title"><a href="#">On Productive Confusion</a></h3>
+                <p class="idea-excerpt">A conversation between a mathematician and a choreographer about the moment before understanding—when pattern recognition fails and new seeing becomes possible.</p>
+                <div>
+                    <span class="idea-tag">Interdisciplinary</span>
+                    <span class="idea-tag">Cognition</span>
+                </div>
+                <p class="idea-author">With Yuki Tanaka & Simone Beaumont</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="experiments">
+        <h2 class="section-title">Experiments</h2>
+        <p class="experiments-intro">These are our active investigations—projects that exist at the boundaries of conventional research, drawing methods and questions from multiple disciplines to explore ideas that don't fit neatly anywhere else.</p>
+        
+        <div class="experiment-list">
+            <div class="experiment-item">
+                <div class="experiment-header">
+                    <h3 class="experiment-title">The Adjacency Project</h3>
+                    <span class="experiment-status active">Active</span>
+                </div>
+                <p class="experiment-description">Mapping conceptual neighbors: what ideas live next to each other in different fields? A physicist's "symmetry breaking" beside an anthropologist's "liminality," a biologist's "emergence" next to a literary critic's "defamiliarization." We're building a network of intellectual adjacencies that reveals surprising kinships.</p>
+            </div>
+            
+            <div class="experiment-item">
+                <div class="experiment-header">
+                    <h3 class="experiment-title">Failed Analogies Archive</h3>
+                    <span class="experiment-status active">Active</span>
+                </div>
+                <p class="experiment-description">Collecting the metaphors that didn't work—the comparisons that collapsed, the models that mislead. What do unsuccessful analogies tell us about the limits of understanding? Contributors submit their most productive failures.</p>
+            </div>
+            
+            <div class="experiment-item">
+                <div class="experiment-header">
+                    <h3 class="experiment-title">Residency for Marginal Thinking</h3>
+                    <span class="experiment-status emerging">Emerging</span>
+                </div>
+                <p class="experiment-description">A three-month program for scholars, artists, and scientists working on ideas that don't fit their disciplines. No deliverables required. The only mandate: pursue the thought you've been told doesn't belong.</p>
+            </div>
+            
+            <div class="experiment-item">
+                <div class="experiment-header">
+                    <h3 class="experiment-title">Cross-Temporal Dialogues</h3>
+                    <span class="experiment-status emerging">Emerging</span>
+                </div>
+                <p class="experiment-description">What conversations want to happen across centuries but never got the chance? We're staging intellectual encounters between thinkers separated by time—not historical analysis, but genuine dialogue through careful reconstruction and imaginative scholarship.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="events">
+        <h2 class="section-title">Events</h2>
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="event-date-block">
+                    <div class="event-month">March</div>
+                    <div class="event-day">18</div>
+                </div>
+                <div class="event-content">
+                    <h3 class="event-title">Salon: The Aesthetics of Proof</h3>
+                    <div class="event-details">7:00 PM • Cambridge, MA</div>
+                    <p class="event-description">A mathematician, a poet, and a philosopher walk into a room. What makes an argument beautiful? An evening exploring elegance, intuition, and conviction across modes of knowing.</p>
+                </div>
+            </div>
+            
+            <div class="event-card">
+                <div class="event-date-block">
+                    <div class="event-month">April</div>
+                    <div class="event-day">05</div>
+                </div>
+                <div class="event-content">
+                    <h3 class="event-title">Workshop: Thinking in Fragments</h3>
+                    <div class="event-details">2:00 PM • Virtual</div>
+                    <p class="event-description">A hands-on session exploring aphoristic thinking, the essay form, and how partial insights accumulate into understanding. Led by Eleanor Ashford.</p>
+                </div>
+            </div>
+            
+            <div class="event-card">
+                <div class="event-date-block">
+                    <div class="event-month">May</div>
+                    <div class="event-day">22</div>
+                </div>
+                <div class="event-content">
+                    <h3 class="event-title">Annual Gathering</h3>
+                    <div class="event-details">All Day • Cambridge, MA</div>
+                    <p class="event-description">Our yearly convening of Fellows, collaborators, and curious minds. Presentations of work-in-progress, provocations, and ample time for the conversations that emerge in between.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="people">
+        <h2 class="section-title">People</h2>
+        <p class="people-intro">The Magpie Institute is sustained by scholars, artists, and thinkers who work at the edges of their fields—people comfortable with uncertainty and drawn to questions that don't resolve neatly.</p>
+        
+        <div class="people-grid">
+            <div class="person-card">
+                <div class="person-image">EA</div>
+                <h3 class="person-name">Dr. Eleanor Ashford</h3>
+                <div class="person-role">Founding Fellow</div>
+                <p class="person-bio">Philosopher of science interested in the epistemology of the almost-known. Former faculty at MIT, now focused on ideas that don't fit institutional structures.</p>
+            </div>
+            
+            <div class="person-card">
+                <div class="person-image">MC</div>
+                <h3 class="person-name">Marcus Chen</h3>
+                <div class="person-role">Senior Fellow</div>
+                <p class="person-bio">Theoretical physicist turned science studies scholar. Investigates how metaphor and analogy function in scientific discovery and theory-building.</p>
+            </div>
+            
+            <div class="person-card">
+                <div class="person-image">SB</div>
+                <h3 class="person-name">Simone Beaumont</h3>
+                <div class="person-role">Fellow in Residence</div>
+                <p class="person-bio">Choreographer and cognitive scientist exploring embodied knowledge and non-verbal forms of understanding. Currently working on movement-based epistemology.</p>
+            </div>
+            
+            <div class="person-card">
+                <div class="person-image">YT</div>
+                <h3 class="person-name">Yuki Tanaka</h3>
+                <div class="person-role">Visiting Scholar</div>
+                <p class="person-bio">Mathematician interested in the aesthetics of proof and the role of intuition in formal reasoning. Collaborating on the Cross-Temporal Dialogues project.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">
+                    <svg class="footer-symbol" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse class="magpie-silhouette" cx="85" cy="45" rx="12" ry="14" transform="rotate(-20 85 45)" fill="white"/>
+                        <path class="magpie-silhouette" d="M95,42 L105,38 L104,43 L95,45 Z" fill="white"/>
+                        <ellipse class="magpie-silhouette" cx="70" cy="65" rx="20" ry="28" transform="rotate(-10 70 65)" fill="white"/>
+                        <path class="magpie-silhouette" d="M58,55 Q50,60 48,70 Q47,80 52,88 L60,85 Q62,75 65,65 Z" fill="white"/>
+                        <path class="magpie-silhouette" d="M55,85 Q45,95 40,110 Q38,118 42,125 L48,123 Q50,115 54,105 Q58,95 60,88 Z" fill="white"/>
+                        <path class="magpie-silhouette" d="M60,88 Q52,98 48,112 Q47,120 50,128 L55,126 Q57,118 60,108 Q63,98 65,90 Z" fill="white"/>
+                        <path class="magpie-silhouette" d="M65,90 Q60,100 58,115 Q58,123 62,130 L67,128 Q68,120 70,110 Q72,100 72,92 Z" fill="white"/>
+                    </svg>
+                    <div class="footer-wordmark">The Magpie Institute</div>
+                </div>
+                <div class="footer-tagline">Collectors of Ideas</div>
+                <p class="footer-description">A place for ideas in the process of becoming. What glints, stays.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Navigate</h3>
+                <ul class="footer-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#ideas">Ideas</a></li>
+                    <li><a href="#experiments">Experiments</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#people">People</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <ul class="footer-links">
+                    <li><a href="mailto:hello@magpieinstitute.org">Email Us</a></li>
+                    <li><a href="#">Newsletter</a></li>
+                    <li><a href="#">Submit an Idea</a></li>
+                    <li><a href="#">Support Our Work</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            © 2026 The Magpie Institute • Cambridge, Massachusetts
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll navigation with active state
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        const sections = document.querySelectorAll('section[id]');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    const navHeight = document.getElementById('navbar').offsetHeight;
+                    const targetPosition = targetSection.offsetTop - navHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Update active nav state on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            
+            // Add scrolled class
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Update active nav link
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

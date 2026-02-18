@@ -1,0 +1,69 @@
+#events {
+  background: white;
+  margin-top: 5rem;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+}
+
+.event-card {
+  background: var(--paper-white);
+  border: 1px solid var(--tarnished-silver);
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.event-card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.event-date-block {
+  background: var(--corvid-blue);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.event-month {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+}
+
+.event-day {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.event-content {
+  padding: 2rem;
+}
+
+.event-title {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.event-details {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  color: var(--archive-grey);
+  margin-bottom: 1rem;
+}
+
+.event-description {
+  font-size: 0.938rem;
+  line-height: 1.6;
+  color: var(--archive-grey);
+}
