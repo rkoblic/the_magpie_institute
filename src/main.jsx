@@ -5,6 +5,7 @@ import App from './App';
 import Home from './pages/Home';
 import Ideas from './pages/Ideas';
 import Experiments from './pages/Experiments';
+import ExperimentDetail from './pages/ExperimentDetail';
 import Events from './pages/Events';
 import People from './pages/People';
 import Principles from './pages/Principles';
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'ideas', element: <Ideas /> },
       { path: 'experiments', element: <Experiments /> },
+      { path: 'experiments/:slug', element: <ExperimentDetail /> },
       { path: 'events', element: <Events /> },
       { path: 'people', element: <People /> },
       { path: 'principles', element: <Principles /> },
