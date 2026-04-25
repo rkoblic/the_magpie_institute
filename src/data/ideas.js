@@ -6,7 +6,7 @@ export const ideas = [
     excerpt:
       "Gutenberg made knowledge abundant; the humanists answered with a project of formation. As AI again makes knowledge radically abundant, the civic question turns from acquisition to judgment\u2014what kind of person is capable of wielding what we now know?",
     tags: ["History", "Philosophy", "AI & Society"],
-    author: "The Magpie Institute",
+    author: "By Wes Cate",
   },
   {
     meta: "Essay \u2022 12 min read",
