@@ -1,5 +1,14 @@
 export const ideas = [
   {
+    slug: "renaissance-and-ai",
+    meta: "Essay \u2022 8 min read",
+    title: "Lessons from the Renaissance for the AI Age",
+    excerpt:
+      "Gutenberg made knowledge abundant; the humanists answered with a project of formation. As AI again makes knowledge radically abundant, the civic question turns from acquisition to judgment\u2014what kind of person is capable of wielding what we now know?",
+    tags: ["History", "Philosophy", "AI & Society"],
+    author: "The Magpie Institute",
+  },
+  {
     meta: "Essay \u2022 12 min read",
     title: "The Taxonomy of Almost-Thoughts",
     excerpt:

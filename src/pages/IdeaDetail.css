@@ -1,0 +1,118 @@
+#idea-detail {
+  background: var(--paper-white);
+  max-width: 760px;
+  margin-top: 5rem;
+}
+
+#idea-detail .back-link {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  color: var(--corvid-blue);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  display: inline-block;
+  margin-bottom: 2rem;
+  transition: color 0.2s;
+}
+
+#idea-detail .back-link:hover {
+  color: var(--verdigris);
+}
+
+.idea-detail-header {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--tarnished-silver);
+}
+
+.idea-detail-meta {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--tarnished-silver);
+  margin-bottom: 1rem;
+}
+
+.idea-detail-header .section-title {
+  margin-bottom: 1.5rem;
+}
+
+.idea-detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.idea-detail-author {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  color: var(--archive-grey);
+  margin: 0;
+}
+
+.idea-detail-body {
+  font-family: var(--font-body, 'Crimson Text', serif);
+}
+
+.idea-detail-body p {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: var(--archive-grey);
+  margin-bottom: 1.5rem;
+}
+
+.idea-detail-body p strong {
+  color: var(--ink-black);
+  font-weight: 600;
+}
+
+.idea-detail-body em {
+  font-style: italic;
+}
+
+.idea-detail-body a {
+  color: var(--corvid-blue);
+  text-decoration: underline;
+  text-decoration-color: var(--tarnished-silver);
+  text-underline-offset: 3px;
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+
+.idea-detail-body a:hover {
+  color: var(--verdigris);
+  text-decoration-color: var(--verdigris);
+}
+
+.idea-detail-body h1,
+.idea-detail-body h2,
+.idea-detail-body h3 {
+  font-family: var(--font-display);
+  color: var(--ink-black);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.idea-detail-body h2 {
+  font-size: 1.75rem;
+}
+
+.idea-detail-body h3 {
+  font-size: 1.375rem;
+}
+
+.idea-detail-body blockquote {
+  margin: 2rem 0;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--tarnished-silver);
+  font-style: italic;
+  color: var(--corvid-blue);
+}
+
+.idea-detail-body blockquote p {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
